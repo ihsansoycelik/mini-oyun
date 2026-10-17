@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Yerel push güvenlik ağı.
 # - Arkadaş (claude.role ihsan değilse) main branch'ine push edemez.
+# - Arkadaş branch silemez; İhsan main hariç silebilir.
 # - Kimse force push / geçmişi yeniden yazma yapamaz.
 set -u
 
@@ -13,6 +14,20 @@ while read -r local_ref local_sha remote_ref remote_sha; do
   if [ "$remote_ref" = "refs/heads/main" ] && [ "$role" != "ihsan" ]; then
     echo "HATA: main branch'ine push engellendi." >&2
     echo "Sadece kendi branch'ine (arkadas) push yapabilirsin. İhsan'a haber ver." >&2
+    exit 1
+  fi
+
+  # Branch silme: main asla silinemez; diğerlerini sadece İhsan silebilir.
+  if [ "$local_ref" = "(delete)" ]; then
+    if [ "$remote_ref" = "refs/heads/main" ]; then
+      echo "HATA: main branch'i silinemez." >&2
+      exit 1
+    fi
+    if [ "$role" = "ihsan" ]; then
+      continue
+    fi
+    echo "HATA: Branch silme engellendi." >&2
+    echo "İhsan'a haber ver." >&2
     exit 1
   fi
 
