@@ -43,6 +43,10 @@ Lütfen şu adımları sırayla yap:
    tamamla. Eksik varsa düzelt.
 9. Bana her adımı çok basit Türkçe ile anlat. Takılırsan uydurma;
    "İhsan'a soralım" de.
+10. Kurulum bittikten sonra bana şunu hatırlat: "Bundan sonra Claude Code'u
+    her zaman `mini-oyun` klasöründe açmalıyım." Proje kuralları (`CLAUDE.md`,
+    `.claude/settings.json` ve otomatik commit hook'u) ancak Claude Code bu
+    klasörde açıldığında yüklenir. Bana klasörü nasıl açacağımı adım adım anlat.
 
 Önemli: Bu projede benim agent'ım her iş bitince otomatik commit ve push
 yapacak. Bunun için repodaki `CLAUDE.md` ve `.claude/hooks/otomatik-kaydet.sh`

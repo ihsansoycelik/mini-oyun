@@ -59,10 +59,15 @@ Claude'a şunu sor: **"Kurulum tamam mı? Tek tek kontrol et."**
       hatası vermeli (bu beklenen ve istenen sonuçtur; gerçek push yapılmaz)
 - [ ] GitHub'da `arkadas` branch'i görünüyor (İhsan kontrol edebilir)
 
+**ÖNEMLİ:** Kurulum bittikten sonra Claude Code'u kapat ve `mini-oyun`
+klasöründe yeniden aç. `CLAUDE.md`, `.claude/settings.json` ve otomatik commit
+hook'u ancak Claude Code bu klasörde açıldığında yüklenir.
+
 ## 5. Günlük kullanım
 
 1. Claude Code'u aç.
-2. Proje klasörünü seç (adı `mini-oyun`).
+2. **Her zaman `mini-oyun` klasörünü seç** (ana klasörü veya başka bir
+   klasörü değil). Kurallar ve otomatik kayıt yalnızca bu klasörde çalışır.
 3. Ne istediğini normal Türkçe yaz:
    - "Oyuna zıplama ekle."
    - "Skoru ekranın sağ üstüne taşı."
