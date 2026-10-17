@@ -104,6 +104,8 @@ değişiklikleri de commit et (iş kaybolmasın).
 - Repo'yu silme, arşivleme, görünürlüğünü değiştirme
 - `.claude/`, `.githooks/`, `.gitignore`, `CLAUDE.md` dosyalarını kullanıcı
   istemeden değiştirme
+- `git config --local core.hooksPath` veya `git config --local claude.role`
+  ayarlarını değiştirme / devre dışı bırakma
 
 ## 4. İHSAN MODU
 

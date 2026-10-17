@@ -24,8 +24,10 @@ Lütfen şu adımları sırayla yap:
 3. İhsan'ın beni repoya davet etmesi gerekiyor. Kullanıcı adımı İhsan'a
    göndermeme yardım et. Davet gelince kabul etmem için bana linki göster.
 4. GitHub CLI (`gh`) kurulu mu bak. Değilse kur. Sonra GitHub'a giriş yapmam
-   için `gh auth login` komutunu çalıştır; tarayıcıdaki adımları ben yapacağım.
-   Gerekirse bana `! gh auth login` yazdır.
+   için `gh auth login --git-protocol https --web` komutunu çalıştır;
+   tarayıcıdaki adımları ben yapacağım. Gerekirse bana
+   `! gh auth login --git-protocol https --web` yazdır.
+   (HTTPS seçilmesi önemli; SSH değil.)
 5. Repoyu HTTPS ile klonla:
    `git clone https://github.com/ihsansoycelik/mini-oyun.git`
    Sonra klasöre gir.

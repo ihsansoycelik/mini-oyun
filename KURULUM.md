@@ -32,7 +32,8 @@ onun bilgisayarında yapar.
 2. GitHub hesabı açman için tarayıcıyı açar.
 3. İhsan'a kullanıcı adını göndermene yardım eder; İhsan seni davet eder.
 4. Daveti kabul edersin.
-5. GitHub CLI (`gh`) kurulur; `gh auth login` ile GitHub'a giriş yaparsın.
+5. GitHub CLI (`gh`) kurulur; `gh auth login --git-protocol https --web` ile
+   GitHub'a giriş yaparsın (HTTPS seçilmesi önemli).
 6. Repoyu HTTPS ile klonlar.
 7. Şu yerel ayarları yapar:
    - `git config user.name "<GitHub kullanıcı adın>"`
@@ -54,6 +55,8 @@ Claude'a şunu sor: **"Kurulum tamam mı? Tek tek kontrol et."**
 - [ ] `git log --oneline -1` → en az bir commit var
 - [ ] `git status` → `working tree clean`
 - [ ] `git push --dry-run origin arkadas` → hata yok
+- [ ] `git push --dry-run origin HEAD:main` → "main branch'ine push engellendi"
+      hatası vermeli (bu beklenen ve istenen sonuçtur; gerçek push yapılmaz)
 - [ ] GitHub'da `arkadas` branch'i görünüyor (İhsan kontrol edebilir)
 
 ## 5. Günlük kullanım
@@ -83,7 +86,7 @@ Claude'a şunu sor: **"Kurulum tamam mı? Tek tek kontrol et."**
 |---|---|
 | `gh: command not found` | Claude'a "GitHub CLI kurulu değil, kur" de. |
 | `Permission denied (publickey)` | Claude'a "Repoyu HTTPS ile klonla" de. |
-| `Authentication failed` | Claude'a "GitHub girişimi yenile" de; `gh auth login` tekrar çalışır. |
+| `Authentication failed` | Claude'a "GitHub girişimi yenile" de; `gh auth login --git-protocol https --web` tekrar çalışır. |
 | `Push rejected` | Claude'a "push reddedildi, bana basitçe anlat, İhsan'a soracağım" de. |
 | Claude "hook" onayı istiyor | Onayla; bu, otomatik kaydın çalışması için gerekli. |
 | Otomatik commit olmuyor | Claude'a "proje hook'larını kontrol et" de; İhsan'a haber ver. |
