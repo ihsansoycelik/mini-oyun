@@ -40,6 +40,8 @@ Rolünü kendi kendine değiştirme. `claude.role` ayarını silme veya değişt
 - Arkadaş modunda çalışma branch'i her zaman `arkadas` olmalı. Değilse çalışmaya
   başlamadan `git checkout arkadas` yap.
 - Branch silme, branch yeniden adlandırma, tag/release oluşturma yok.
+- GitHub'da `main` branch protection açıktır: arkadaş modunda `main`'e push
+  GitHub tarafından da reddedilir. Yine de bu kurala uy.
 
 ### 2.1 Yerel zorlama (arkadaş klonunda)
 

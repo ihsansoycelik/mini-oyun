@@ -3,7 +3,8 @@
 ## 1. Bu makinede yapılan hazırlık
 
 - Yerel repo: `/home/ubuntu/game_dev/mini-oyun`
-- GitHub repo: `https://github.com/ihsansoycelik/mini-oyun` (private)
+- GitHub repo: `https://github.com/ihsansoycelik/mini-oyun` (public)
+- `main` branch protection: açık (PR zorunlu, 1 onay, force push/silme kapalı)
 - Branch'ler: `main` (yayın), `ihsan` (senin çalışma branch'in), `arkadas` (arkadaş)
 - Yerel ayarlar:
   - `git config --local claude.role ihsan`
@@ -27,25 +28,24 @@ veya GitHub'da:
 
 Arkadaşın daveti kabul etsin. Sonra `ARKADAS-BASLANGIC.md` dosyasını ona gönder.
 
-## 3. Branch koruması hakkında
+## 3. Branch koruması
 
-GitHub Free planında **özel** repolarda sunucu tarafı branch protection yok.
-Bu yüzden şu an:
+Repo **public** ve GitHub'da `main` korumalı:
 
-- Arkadaşın agent'ı `CLAUDE.md` kurallarıyla sadece `arkadas` branch'inde çalışır.
-- Arkadaşın klonunda `.githooks/pre-commit` `arkadas` dışındaki branch'lerde
-  commit'i engeller.
-- `.githooks/pre-merge-commit` `main`'de merge commit'ini engeller.
-- `.githooks/pre-push` `main`'e push'u ve force push'u engeller.
-- Stop hook'u arkadaş yanlış branch'te kaldıysa değişiklikleri `arkadas`'a taşır,
-  commit eder ve pushlar.
+- `main`'e doğrudan push sadece repo sahibi (sen) için çalışır; arkadaşın Write
+  yetkisi olsa bile GitHub doğrudan push'u reddeder.
+- `main`'e değişiklik için PR gerekir; en az 1 onay istenir.
+- Force push ve `main` silme kapalı.
+- Arkadaş `arkadas` branch'ine serbestçe pushlayabilir; isterse PR açabilir.
+- Yerel hook'lar ek savunma katmanı olarak duruyor:
+  - `pre-commit`: arkadaş `arkadas` dışında commit edemez.
+  - `pre-merge-commit`: arkadaş `main`'de merge commit'i yapamaz.
+  - `pre-push`: arkadaş `main`'e push edemez; force push engellenir.
+  - Stop hook: arkadaş yanlış branch'te kaldıysa işi `arkadas`'a taşır.
 - `.claude/settings.json` tehlikeli git komutlarını reddeder.
 
-Daha güçlü bir garanti istersen:
-
-1. Repoyu **public** yap → ücretsiz branch protection açılır; veya
-2. GitHub Pro al → özel repoda branch protection açılır; veya
-3. Arkadaşına **Read** yetkisi verip fork + PR akışına geç.
+Not: `main`'e doğrudan push admin (sen) için bypass ile çalışır. GitHub
+"protected branch" hatası verirse PR açıp merge et.
 
 ## 4. Günlük akış
 
@@ -91,6 +91,9 @@ git merge origin/main
 git push origin ihsan
 ```
 
+`main` korumalı olduğu için doğrudan push admin (sen) için bypass ile çalışır.
+GitHub "protected branch" hatası verirse `ihsan` → `main` PR'ı açıp merge et.
+
 Claude'a:
 
 > "ihsan branch'ini main'e merge et ve pushla. Önce oyunu çalıştırıp test et;
@@ -121,7 +124,9 @@ git push origin ihsan
 
 ## 6. İlk kontrol listesi
 
-- [ ] GitHub'da repo private ve `main` varsayılan branch.
+- [ ] GitHub'da repo public ve `main` varsayılan branch.
+- [ ] `main` branch protection açık (PR + 1 onay; force push/silme kapalı).
+- [ ] Arkadaşın `main`'e doğrudan push denemesi GitHub tarafından reddediliyor.
 - [ ] `origin/ihsan` branch'i var.
 - [ ] Arkadaşın GitHub davetini kabul etti.
 - [ ] Arkadaşın klonunda `git config --local claude.role` → `arkadas`.
