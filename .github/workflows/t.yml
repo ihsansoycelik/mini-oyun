@@ -1,8 +1,0 @@
-name: t
-on:
-  push:
-jobs:
-  m:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo hi
