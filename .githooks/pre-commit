@@ -3,6 +3,16 @@
 # Gizli bilgi içerebilecek dosyaları ve 20 MB üzerindeki dosyaları engeller.
 set -u
 
+role="$(git config --local claude.role 2>/dev/null || true)"
+branch="$(git branch --show-current 2>/dev/null || true)"
+
+# Arkadaş modunda sadece arkadas branch'inde commit yapılabilir.
+if [ "$role" != "ihsan" ] && [ "$branch" != "arkadas" ]; then
+  echo "HATA: Sadece 'arkadas' branch'inde commit yapılabilir. Şu an: ${branch:-bilinmiyor}" >&2
+  echo "Önce 'git checkout arkadas' yap; değişiklikler yeni branch'e taşınır." >&2
+  exit 1
+fi
+
 secret=""
 while IFS= read -r -d '' f; do
   case "$f" in

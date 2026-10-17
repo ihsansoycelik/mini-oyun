@@ -33,7 +33,12 @@ GitHub Free planında **özel** repolarda sunucu tarafı branch protection yok.
 Bu yüzden şu an:
 
 - Arkadaşın agent'ı `CLAUDE.md` kurallarıyla sadece `arkadas` branch'inde çalışır.
-- Arkadaşın klonunda `.githooks/pre-push` dosyası `main`'e push'u yerelde engeller.
+- Arkadaşın klonunda `.githooks/pre-commit` `arkadas` dışındaki branch'lerde
+  commit'i engeller.
+- `.githooks/pre-merge-commit` `main`'de merge commit'ini engeller.
+- `.githooks/pre-push` `main`'e push'u ve force push'u engeller.
+- Stop hook'u arkadaş yanlış branch'te kaldıysa değişiklikleri `arkadas`'a taşır,
+  commit eder ve pushlar.
 - `.claude/settings.json` tehlikeli git komutlarını reddeder.
 
 Daha güçlü bir garanti istersen:

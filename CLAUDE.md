@@ -41,6 +41,18 @@ Rolünü kendi kendine değiştirme. `claude.role` ayarını silme veya değişt
   başlamadan `git checkout arkadas` yap.
 - Branch silme, branch yeniden adlandırma, tag/release oluşturma yok.
 
+### 2.1 Yerel zorlama (arkadaş klonunda)
+
+Arkadaş modunda bu kurallar sadece tavsiye değildir; hook'larla zorlanır:
+
+- `pre-commit`: `arkadas` dışındaki branch'lerde commit engellenir.
+- `pre-merge-commit`: `main`'de merge commit'i engellenir.
+- `pre-push`: `main`'e push ve force push engellenir.
+- Stop hook: oturum biterken değişiklikler `arkadas` branch'ine taşınır,
+  commit edilir ve pushlanır.
+
+Bu hook'ları devre dışı bırakma; `.githooks` ve `.claude` ayarlarını değiştirme.
+
 ## 3. ARKADAŞ MODU
 
 Kullanıcı Git/GitHub bilmiyor. Ona Git komutu yazdırma, Git terimi kullanma.

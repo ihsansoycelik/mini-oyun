@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Arkadaş modunda merge commit'i sadece arkadas branch'inde yapılabilir.
+set -u
+
+role="$(git config --local claude.role 2>/dev/null || true)"
+branch="$(git branch --show-current 2>/dev/null || true)"
+
+if [ "$role" != "ihsan" ] && [ "$branch" != "arkadas" ]; then
+  echo "HATA: Sadece 'arkadas' branch'inde merge yapılabilir. Şu an: ${branch:-bilinmiyor}" >&2
+  echo "Önce 'git checkout arkadas' yap." >&2
+  exit 1
+fi
+
+exit 0

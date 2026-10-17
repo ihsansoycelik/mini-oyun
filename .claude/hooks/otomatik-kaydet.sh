@@ -24,9 +24,21 @@ if [ -z "$role" ]; then
   fi
 fi
 
-# Bu hook yalnızca arkadaş modunda ve arkadas branch'inde çalışır.
+# Bu hook yalnızca arkadaş modunda çalışır.
 [ "$role" = "arkadas" ] || exit 0
-[ "$branch" = "arkadas" ] || exit 0
+
+# Arkadaş modunda iş her zaman arkadas branch'ine gider.
+# Agent yanlış branch'te kaldıysa değişiklikleri arkadas'a taşımayı dene.
+if [ "$branch" != "arkadas" ]; then
+  old_branch="$branch"
+  if git checkout arkadas >/dev/null 2>&1; then
+    branch="arkadas"
+    log "Branch arkadas'a geçildi (önceki: ${old_branch:-bilinmiyor})"
+  else
+    printf '{"decision":"block","reason":"Değişiklikler arkadas branchinde değil ve otomatik geçiş yapılamadı. git status ile durumu kontrol et; değişiklikleri kaybetmeden arkadas branchine taşı ve commit et. Kullanıcıya sade dille anlat."}\n'
+    exit 0
+  fi
+fi
 
 # Çözülmemiş çakışma varsa kesinlikle commit yapma.
 if [ -n "$(git ls-files -u 2>/dev/null)" ]; then
