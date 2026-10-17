@@ -1,0 +1,42 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git *)"
+    ],
+    "deny": [
+      "Bash(git push --force)",
+      "Bash(git push --force *)",
+      "Bash(git push -f)",
+      "Bash(git push -f *)",
+      "Bash(git push --force-with-lease)",
+      "Bash(git push --force-with-lease *)",
+      "Bash(git reset --hard)",
+      "Bash(git reset --hard *)",
+      "Bash(git rebase)",
+      "Bash(git rebase *)",
+      "Bash(git clean -f)",
+      "Bash(git clean -f *)",
+      "Bash(git branch -D)",
+      "Bash(git branch -D *)",
+      "Bash(git commit --no-verify)",
+      "Bash(git commit --no-verify *)",
+      "Bash(git push --no-verify)",
+      "Bash(git push --no-verify *)"
+    ]
+  },
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/otomatik-kaydet.sh\"",
+            "shell": "bash",
+            "timeout": 120,
+            "statusMessage": "Değişiklikler otomatik kaydediliyor..."
+          }
+        ]
+      }
+    ]
+  }
+}

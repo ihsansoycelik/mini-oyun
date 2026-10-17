@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+# Commit öncesi güvenlik kontrolü.
+# Gizli bilgi içerebilecek dosyaları ve 20 MB üzerindeki dosyaları engeller.
+set -u
+
+secret=""
+while IFS= read -r -d '' f; do
+  case "$f" in
+    .env|*/.env|.env.*|*/.env.*|*.pem|*.key|id_rsa*|*/id_rsa*|*.p12)
+      secret="$secret $f"
+      ;;
+  esac
+done < <(git diff --cached --name-only -z --diff-filter=ACMR 2>/dev/null)
+
+if [ -n "$secret" ]; then
+  echo "HATA: Gizli bilgi içerebilecek dosyalar commit edilemez:$secret" >&2
+  echo "Bu dosyaları .gitignore dosyasına ekleyin veya commit'ten çıkarın." >&2
+  exit 1
+fi
+
+big=""
+while IFS= read -r -d '' f; do
+  [ -f "$f" ] || continue
+  size="$(wc -c < "$f" 2>/dev/null || echo 0)"
+  if [ "${size:-0}" -gt 20971520 ] 2>/dev/null; then
+    big="$big $f"
+  fi
+done < <(git diff --cached --name-only -z --diff-filter=ACMR 2>/dev/null)
+
+if [ -n "$big" ]; then
+  echo "HATA: 20 MB üzerindeki dosyalar commit edilemez:$big" >&2
+  echo "Gerekirse .gitignore dosyasına ekleyin veya kullanıcıya sorun." >&2
+  exit 1
+fi
+
+exit 0

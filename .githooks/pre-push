@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+# Yerel push güvenlik ağı.
+# - Arkadaş (claude.role ihsan değilse) main branch'ine push edemez.
+# - Kimse force push / geçmişi yeniden yazma yapamaz.
+set -u
+
+role="$(git config --local claude.role 2>/dev/null || true)"
+zero="0000000000000000000000000000000000000000"
+
+while read -r local_ref local_sha remote_ref remote_sha; do
+  [ -n "${remote_ref:-}" ] || continue
+
+  if [ "$remote_ref" = "refs/heads/main" ] && [ "$role" != "ihsan" ]; then
+    echo "HATA: main branch'ine push engellendi." >&2
+    echo "Sadece kendi branch'ine (arkadas) push yapabilirsin. İhsan'a haber ver." >&2
+    exit 1
+  fi
+
+  # Silme işlemleri ve force push / non-fast-forward engeli.
+  if [ "${remote_sha:-$zero}" != "$zero" ]; then
+    if ! git merge-base --is-ancestor "$remote_sha" "$local_sha" 2>/dev/null; then
+      echo "HATA: Force push veya geçmişi yeniden yazma engellendi." >&2
+      echo "Önce 'git fetch origin' yapıp normal birleştirme kullan. İhsan'a haber ver." >&2
+      exit 1
+    fi
+  fi
+done
+
+exit 0

@@ -1,0 +1,17 @@
+* text=auto
+
+# Script'ler Windows'ta da LF ile çalışsın
+*.sh text eol=lf
+.githooks/* text eol=lf
+
+# Binary dosyalar
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
+*.mp3 binary
+*.ogg binary
+*.wav binary
+*.zip binary
