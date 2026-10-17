@@ -21,8 +21,9 @@ Lütfen şu adımları sırayla yap:
 2. GitHub hesabım yok. Benimle birlikte https://github.com/signup adresini aç;
    hesabı ben oluşturayım. Sonra kullanıcı adımı sana söyleyeyim.
    (Hesabım varsa bu adımı atla; kullanıcı adımı sana söyleyeyim.)
-3. İhsan'ın beni repoya davet etmesi gerekiyor. Kullanıcı adımı İhsan'a
-   göndermeme yardım et. Davet gelince kabul etmem için bana linki göster.
+3. İhsan beni repoya davet etti. Daveti şu adresten kabul etmeme yardım et:
+   https://github.com/ihsansoycelik/mini-oyun/invitations
+   GitHub'da doğru hesapla giriş yaptığımdan emin ol.
 4. GitHub CLI (`gh`) kurulu mu bak. Değilse kur. Sonra GitHub'a giriş yapmam
    için `gh auth login --git-protocol https --web` komutunu çalıştır;
    tarayıcıdaki adımları ben yapacağım. Gerekirse bana
